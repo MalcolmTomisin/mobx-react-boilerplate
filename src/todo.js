@@ -1,15 +1,12 @@
 import {observable, computed} from 'mobx'
 
-// var _id = 0;
-// function nextId(){_id++; return _id}
+var _id = 0;
+function nextId(){_id++; return _id}
 
 //model class
-export class Todo {
-        
+export default class Todo {
 
-        constructor(){
-                this.id = nextId;
-        }
+        id = nextId;
 
         @observable text = ''
 
@@ -29,7 +26,7 @@ export class Todo {
 
         static deserialize(json: Object){
                 const todo = new Todo()
-                todo.id = json['id'] 
+                todo.id = json['id']  || nextId()
                 todo.text = json['text'] || ''
                 todo.done = json['done'] || false
                 return todo

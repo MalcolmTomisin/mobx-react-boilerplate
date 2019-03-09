@@ -11,6 +11,7 @@ export class TodoViewModel {
     @action
     add (){
         const newTodo = new Todo();
+        
         this.todos.push(newTodo)
         return newTodo
     }
