@@ -1,24 +1,30 @@
 import {observable, computed} from 'mobx'
 
-var _id = 0;
-function nextId(){_id++; return _id}
+
+var num = function foo() {
+
+        if( typeof foo.counter == 'undefined' ) {
+            foo.counter = 0;
+        }
+        return foo.counter++;
+    }
+
 
 //model class
 export default class Todo {
 
-        id = nextId;
+        @observable id = num()
 
         @observable text = ''
 
         @observable done = false
 
-        @computed get isValid (){
-                return this.text !== ''
-        }
+         
+
 
         serialize(){
                 return{
-                        id: this.id,
+                        id: this.id , 
                         text : this.text,
                         done : this.done
                 }
@@ -26,7 +32,7 @@ export default class Todo {
 
         static deserialize(json: Object){
                 const todo = new Todo()
-                todo.id = json['id']  || nextId()
+                todo.id = json['id']  || this.id
                 todo.text = json['text'] || ''
                 todo.done = json['done'] || false
                 return todo
